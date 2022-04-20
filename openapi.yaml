@@ -1,0 +1,80 @@
+openapi: '3.0.3'
+info:
+  title: memegram
+  description: "# memes memes memes"
+  contact:
+    email: hi@memegram.com
+    name: Yuri Gonzalez
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://localhost:3000/
+  description: Dev
+paths:
+  /posts:
+    get:
+      tags:
+      - posts
+      summary: obtiene todos los posts
+      description: obtiene todos los posts
+      operationId: getPosts
+      responses:
+        "200":
+          description: lista de posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  required:
+                  - id
+                  - idUser
+                  - image
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 33
+                    idUser:
+                      type: integer
+                      example: 33
+                    image:
+                      type: string
+                      example: 1a.png
+        "400":
+          description: bad input parameter
+  /posts/{id}:
+    get:
+      tags:
+      - posts
+      summary: obtiene un post
+      parameters:
+      - name: id
+        in: path
+        description: id del post
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: post con id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 33
+                  idUser:
+                    type: integer
+                    example: 33
+                  image:
+                    type: string
+                    example: 1a.png
